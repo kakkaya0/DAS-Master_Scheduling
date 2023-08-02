@@ -1,5 +1,5 @@
 # DAS_Master_Scheduling
-This repository implements a Master Scheduling algorithm for Demand Adaprive Services, which was published in the following paper [link to paper](https://link.springer.com/article/10.1007/s10479-010-0710-5). The algorithm can be used to determine the master schedule of a single DAS line,
+This repository implements a Master Scheduling algorithm for Demand Adaprive Services, which was published by Crainic, Errico, Malucelli and Nonato [link to paper](https://link.springer.com/article/10.1007/s10479-010-0710-5). The algorithm can be used to determine the master schedule of a single DAS line,
 that is, determining the time windows for the compulsory stops of the line.
 
 # Structure
