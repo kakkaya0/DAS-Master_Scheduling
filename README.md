@@ -4,3 +4,5 @@ that is, determining the time windows for the compulsory stops of the line.
 
 # Structure
 In the data directory, you find the [TSPLIB instances](http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/) and the [TSPGL2 instances](https://w1.cirrelt.ca/~errico/#Instances) aswell as additional information about compulsory stops, node cover, feasibility cover, and route edges in the route directory.
+
+In the generators directory, you find how to generate the data from the mentioned data sources to be used for the algorithm.
