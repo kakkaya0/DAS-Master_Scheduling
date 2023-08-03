@@ -6,6 +6,7 @@ import ast
 import Probabilities as prob
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # This method returns the node order for the whole solution route
@@ -276,32 +277,86 @@ def shortest_hamiltonian_path_between_two_segments(instance, segment_index, spee
 # If standard deviation is close to mean then stop
 
 
-def get_sampling(instance,segment_index,speed,number_of_samples):
+def single_segment_subproblem(instance,segment_index,speed,number_of_samples,dimension_of_samples,standard_deviation,epsilon):
 
+#For single segment subproblem we assume that lower bound (Ah) is 0
+ lower_bound = 0
+
+#Create sampling results dictionary for Total Weight and Travel Time in each dimension
  sampling_results = {}
  value_names = ['Total Weight', 'Travel Time']
 
- for i in range(number_of_samples):
-     total_weight = shortest_hamiltonian_path_between_two_segments(instance,segment_index,speed)[2]
-     travel_time = shortest_hamiltonian_path_between_two_segments(instance,segment_index,speed)[3]
+#Create a list to save each dimension in that.
+ all_samples_list = list()
+
+
+#Iterate through each dimension of every sample and calculate the total weight and travel time
+#They are different for each dimension because optional stops are randomized depending on the probability distribution of demand
+ for j in range(number_of_samples):
+  sampling_results = {}
+  value_names = ['Total Weight', 'Travel Time']
+  for i in range(dimension_of_samples):
+
+     method_results = shortest_hamiltonian_path_between_two_segments(instance,segment_index,speed)
+     total_weight = method_results[2]
+     travel_time = method_results[3]
 
      sampling_results[i] = {
         value_names[0]: total_weight,
         value_names[1]: travel_time 
         }
- 
- travel_time_values = [sampling_results[result][value_names[1]] for result in sampling_results]
- mean = np.mean(travel_time_values)
- standard_deviation = np.std(travel_time_values)
+  all_samples_list.append(sampling_results)
 
+# Create a new dictionary to calculate the service times and upper bounds for each sample
+ service_times = {}
+ value_names_service = ['Service Time(Hh)', 'Upper Bound(Bh)']
+
+ #For-loop to iterate through each sample   
+ for i in range(number_of_samples):
+    # Get the travel time values for each sample and build an histogram to calculate the Probability Mass Function(PMF) and Cumulative Distribution Function (CDF)
+      travel_time_values = [all_samples_list[i][result][value_names[1]] for result in all_samples_list[i]]
+      count, bins_count = np.histogram(travel_time_values, bins = 10)
+    # Calculate pmf and cdf and then find the lowest service time value, which guarantees with a probability of 1-epsilon, that the vehicle has a sufficent time to serve the active set  
+      pmf = count / sum(count)
+      cdf = np.cumsum(pmf)
+      given_probability = 1-epsilon
+      service_time = np.interp(given_probability, cdf, bins_count[1:])
+
+    #Upper bound is equal to lower bound + service time  
+      upper_bound = lower_bound + service_time
     
- return sampling_results,mean,standard_deviation
+    #Save the service time and upper bound for each sample in a dictionary
+      service_times[i] = {
+        value_names_service[0]: service_time,
+        value_names_service[1]: upper_bound 
+        }
+
+#Create a list for upper bound values of each sample
+#Iterate through every sample and get the upper_bound values
+ upper_bound_values = list()
+ for i in range(len(service_times)):
+    upper_bound_values = [service_times[result][value_names_service[1]] for result in service_times]
+
+
+#Calculate the mean and standard deviation of the upper bound value of every sample
+ mean = np.mean(upper_bound_values)
+ sd = np.std(upper_bound_values)
+
+#If calculated standard deviation value is smaller than our standard deviation input (if it is close to the mean)
+#Then the solution is precise and we return the mean and dimension of samples
+# If it is bigger than standard deviation input then we run the method once again with a bigger cardinality of dimension size
+ if (sd < standard_deviation) :
+
+    return mean, dimension_of_samples
+
+ else :
+   return single_segment_subproblem(instance,segment_index,speed,number_of_samples, dimension_of_samples = dimension_of_samples + 10, standard_deviation = standard_deviation, epsilon = epsilon  )
 
 
 
-#Example Usage
-#print(get_sampling(24,0,35,100)[1])
-#print(get_sampling(24,0,35,100)[2])
+
+
+#print(single_segment_subproblem(24,0,35,10,10,1,0.05))
 
 
 
