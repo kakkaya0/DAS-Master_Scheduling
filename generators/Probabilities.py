@@ -13,22 +13,6 @@ import gurobipy as gp
 from gurobipy import GRB
 
 
-#create a new list to save distance matrix and demand dict under it
-
-#put in the latex file
-list_demand_dist = list()
-
-#load the instance
-list_demand_dist = tsp.load_demand(24)
-graph = tsp.generate_graph (22)
-
-#divide the list as distance matrix and demand dict
-
-dist_matrix = list_demand_dist[0]
-demand_dict = list_demand_dist[1]
-
-print(graph[1])
-
 #calculating the probability of a node being active from the given probabilities
 
 def get_prob_being_active(instance, node):
