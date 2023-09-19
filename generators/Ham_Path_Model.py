@@ -105,30 +105,3 @@ class S_TSP:
         self.m.Params.LogToConsole = 0
         self.m.Params.lazyConstraints = 1
         self.m.optimize(subtourelim)
-
-        #if self.m.status == gp.GRB.OPTIMAL:
-     # Print the optimal solution variables and their values
-         #for var in self.m.getVars():
-          #  if var.x > 0.5:
-           #  print(f'{var.varName} = {var.x}')
-         
-        #else:
-         # print('No solution found or optimization was not successful.')
-
-
-# Example usage
-#graph = tsp.generate_graph(24)[0]
-#network = tsp.load_demand(24)[0] #Load the distance matrix of the given instance
-#nodes = list(graph.nodes) #Generate the graph of the given instance
-#edges = list(graph.edges)
-#destination = list()
-#destination.append((23,23))
-#origin = list()
-#origin.append((5,5))
-
-
-
-#self = S_TSP(graph,edges,nodes,origin,destination)
-#self.calculate_dist_dict()
-#self.build_model()
-#self.solve_model()

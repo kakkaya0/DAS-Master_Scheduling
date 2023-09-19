@@ -55,14 +55,15 @@ def get_prob_being_active(instance, node):
     p_active = 1-p_non_active
     return p_active
 
-print(get_prob_being_active(24,(1,1)))
     
 #calculating the probability of a node being non_active from the given probabilities
 
 def get_prob_being_non_active(instance,node):
 
-        #create a new list to save distance matrix and demand dict under it
+    #create a new list to save distance matrix and demand dict under it
     list_demand_dist = list()
+
+    graph_names = tsp.generate_graph(instance)[1]
 
 #load the instance
     list_demand_dist = tsp.load_demand(instance)
@@ -78,10 +79,14 @@ def get_prob_being_non_active(instance,node):
 #get all the keys from demand dict
     demand_dict_keys = demand_dict.keys()
 
+    for key, value in graph_names.items():
+     if value == node:
+       node_key = key
+
 #iterate through all the keys and get all the values, 
 # which has the node has a origin or destination
     for key in demand_dict_keys:
-        if node in key:
+        if node_key in key:
             list_v1.append(demand_dict[key])
 
 #calculate the probability of that node being non-active
@@ -92,8 +97,4 @@ def get_prob_being_non_active(instance,node):
 
     return p_non_active
 
-
-
-
-#calculate a probability of a set being active,
 
