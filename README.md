@@ -8,7 +8,7 @@ In the data directory, you find the [TSPLIB instances](http://comopt.ifi.uni-hei
 In the generators directory, you find how to generate the data from the mentioned data sources to be used for the algorithm.
 
 # Running the Algorithm
-To run the algorithm you should run the following in your IDE terminal: python generators\Segmentation.py [width_type] [instance] [speed] [number_of_samples] [dimension_of_samples] [standard_deviation] [epsilon] [time_window_width]. The following input arguments are valid:
+To run the algorithm you should run the following in your IDE terminal: *python generators\Segmentation.py [width_type] [instance] [speed] [number_of_samples] [dimension_of_samples] [standard_deviation] [epsilon] [time_window_width].* The following input arguments are valid:
 
 | Argument | Input|
 | ---------|----------|
@@ -21,4 +21,4 @@ To run the algorithm you should run the following in your IDE terminal: python g
 | epsilon | 0 - 1  |
 | time_window_width | Set of whole numbers |
 
-Running the algorithm with the fixed widht and the instance 22 with a 10 samples and 10 dimensions for each sample and with a speed argument of 25 and standard deviation value of 2, epsilon value of 0.05 and the time_window_width of 5 can be done via python generators\Segmentation.py fixed 22 25 10 10 2 0.05 5.
+Running the algorithm with the fixed widht and the instance 22 with a 10 samples and 10 dimensions for each sample and with a speed argument of 25 and standard deviation value of 2, epsilon value of 0.05 and the time_window_width of 5 can be done via *python generators\Segmentation.py fixed 22 25 10 10 2 0.05 5.*
