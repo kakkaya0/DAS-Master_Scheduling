@@ -7,6 +7,7 @@ import Probabilities as prob
 import random
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 
 
@@ -894,13 +895,29 @@ def DLMSP (width_type,instance,speed,number_of_samples,dimension_of_samples,stan
         raise ValueError("Please check your width_type parameter") 
 
 
-instance = 22
-speed = 25
-number_of_samples = 10
-dimension_of_samples = 10
-standard_deviation = 2
-epsilon=0.05
-width_type = "fixed"
-time_window_width = 5
+#instance = 22
+#speed = 25
+#number_of_samples = 10
+#dimension_of_samples = 10
+#standard_deviation = 2
+#epsilon=0.05
+#width_type = "fixed"
+#time_window_width = 5
 
-print(DLMSP(width_type,instance,speed,number_of_samples,dimension_of_samples,standard_deviation,epsilon,time_window_width))
+
+
+def main(width_type,instance,speed,number_of_samples,dimension_of_samples,standard_deviation,epsilon,time_window_width):
+    result = DLMSP(width_type,instance,speed,number_of_samples,dimension_of_samples,standard_deviation,epsilon,time_window_width)
+    print(result)
+
+if __name__ == "__main__":
+    width_type = str(sys.argv[1]) 
+    instance = int(sys.argv[2])
+    speed = int(sys.argv[3])
+    number_of_samples = int(sys.argv[4])
+    dimension_of_samples = int(sys.argv[5])
+    standard_deviation = int(sys.argv[6])
+    epsilon = float(sys.argv[7])
+    time_window_width = int(sys.argv[8])
+    main(width_type,instance,speed,number_of_samples,dimension_of_samples,standard_deviation,epsilon,time_window_width)
+
