@@ -21,4 +21,4 @@ To run the algorithm you should run the following in your IDE terminal: python g
 | epsilon | 0 - 1  |
 | time_window_width | Set of whole numbers |
 
-Running the algorithm with the instance 22 with a 10 samples and 10 dimensions for each sample and with a speed argument of 25 and standard deviation value of 2, epsilon value of 0.05 and the time_window_width of 5 can be done via python generators\Segmentation.py adjustable 22 25 10 10 2 0.05 5
+Running the algorithm with the fixed widht and the instance 22 with a 10 samples and 10 dimensions for each sample and with a speed argument of 25 and standard deviation value of 2, epsilon value of 0.05 and the time_window_width of 5 can be done via python generators\Segmentation.py fixed 22 25 10 10 2 0.05 5.
